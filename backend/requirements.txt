@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+pandas
+numpy
+python-multipart
+supabase
+pydantic
+pydantic-settings
+email-validator

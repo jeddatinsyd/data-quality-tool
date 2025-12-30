@@ -1,2 +1,6 @@
 venv/
+<<<<<<< HEAD
 backend/venv/
+=======
+backend/venv/
+>>>>>>> a969183 (Remove virtual environment from repo , added frontend and backend components)
