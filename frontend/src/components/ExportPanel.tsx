@@ -11,7 +11,7 @@ export default function ExportPanel() {
     const handleExport = (format: 'csv' | 'json') => {
         // Determine filename
         const runId = results.run_id;
-        window.open(`http://localhost:8000/api/export/${runId}?format=${format}`, '_blank');
+        window.open(`http://127.0.0.1:8000/api/export/${runId}?format=${format}`, '_blank');
     };
 
     return (

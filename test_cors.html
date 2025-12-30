@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CORS Test</title>
+</head>
+<body>
+    <h1>CORS Upload Test</h1>
+    <input type="file" id="fileInput" accept=".csv">
+    <button onclick="testUpload()">Test Upload</button>
+    <pre id="output"></pre>
+
+    <script>
+        async function testUpload() {
+            const fileInput = document.getElementById('fileInput');
+            const output = document.getElementById('output');
+            
+            if (!fileInput.files[0]) {
+                output.textContent = 'Please select a file first';
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('file', fileInput.files[0]);
+
+            try {
+                output.textContent = 'Uploading...';
+                const response = await fetch('http://127.0.0.1:8000/api/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                output.textContent = `Status: ${response.status}\n`;
+                output.textContent += `Headers: ${JSON.stringify([...response.headers.entries()], null, 2)}\n\n`;
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    output.textContent += `Response: ${JSON.stringify(data, null, 2)}`;
+                } else {
+                    output.textContent += `Error: ${await response.text()}`;
+                }
+            } catch (error) {
+                output.textContent = `Error: ${error.message}\n${error.stack}`;
+            }
+        }
+    </script>
+</body>
+</html>

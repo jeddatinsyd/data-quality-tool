@@ -32,7 +32,14 @@ async def upload_file(file: UploadFile = File(...)):
             df = df.head(10)
         else:
             return {"error": "Unsupported file type"}
-            
+        
+        # Convert to JSON-safe types
+        # Replace NaN with None
+        df = df.where(pd.notnull(df), None)
+        
+        # Convert numpy types to Python native types
+        df = df.astype(object).where(pd.notnull(df), None)
+        
         preview = df.to_dict(orient='records')
         columns = list(df.columns)
         
@@ -49,7 +56,8 @@ async def upload_file(file: UploadFile = File(...)):
             "columns": columns
         }
     except Exception as e:
-        os.remove(file_path)
+        if os.path.exists(file_path):
+            os.remove(file_path)
         raise HTTPException(status_code=400, detail=str(e))
 
 @router.post("/validate/{file_id}")

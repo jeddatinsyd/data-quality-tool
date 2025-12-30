@@ -4,15 +4,11 @@ from app.api.endpoints import validation
 
 app = FastAPI(title="Data Quality & Validation Tool")
 
-origins = [
-    "http://localhost:3000",
-    "http://127.0.0.1:3000",
-]
-
+# CORS configuration - must be before routes
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True,
+    allow_origins=["*"],
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -22,3 +18,8 @@ app.include_router(validation.router, prefix="/api", tags=["Validation"])
 @app.get("/")
 async def root():
     return {"message": "Data Quality Tool API is running"}
+
+# Explicit OPTIONS handler for debugging
+@app.options("/api/{path:path}")
+async def options_handler(path: str):
+    return {}
