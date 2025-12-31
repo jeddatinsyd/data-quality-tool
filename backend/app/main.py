@@ -7,7 +7,7 @@ app = FastAPI(title="Data Quality & Validation Tool")
 # CORS configuration - must be before routes
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["https://dqtool.vercel.app/", "locahost:3000"],
     allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
