@@ -1,28 +1,14 @@
 {
-
   "version": 2,
   "builds": [
     {
       "src": "api/index.py",
-
-
-  "version": 2,
-  "builds": [
-    {
-      "src": "api/index.py",
-
-  "builds": [
-    {
-      "src": "app/main.py",
-
-
       "use": "@vercel/python"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-
       "dest": "api/index.py"
     }
   ],
@@ -52,17 +38,4 @@
   "env": {
     "PYTHON_VERSION": "3.11"
   }
-}
-
-
-      "dest": "api/index.py"
-    }
-  ],
-  "env": {
-    "PYTHON_VERSION": "3.11"
-  }
-},
-      "dest": "app/main.py"
-    
-  ]
 }
