@@ -30,3 +30,6 @@ async def root():
 @app.options("/api/{path:path}")
 async def options_handler(path: str):
     return {}
+
+
+#test
