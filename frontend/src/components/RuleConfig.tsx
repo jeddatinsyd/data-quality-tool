@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { useValidationStore } from '@/store/useValidationStore';
+import { API_BASE_URL } from '@/lib/api';
 
 export default function RuleConfigPanel() {
     const { config, updateConfig, fileId, setResults } = useValidationStore();
@@ -13,7 +14,7 @@ export default function RuleConfigPanel() {
         setLoading(true);
         setError(null);
         try {
-            const res = await fetch(`http://127.0.0.1:8000/api/validate/${fileId}`, {
+            const res = await fetch(`${API_BASE_URL}/api/validate/${fileId}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(config),
