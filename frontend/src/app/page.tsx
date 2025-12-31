@@ -46,7 +46,8 @@ export default function Home() {
             </div>
             <div className="lg:col-span-2">
               <div className="bg-white rounded-lg shadow-sm border p-6">
-                <h3 className="text-lg font-medium mb-4">File Preview: {filename}</h3>
+                <h3 className="text-lg font-medium mb-4">File Preview: {filename} <span className="text-sm text-gray-600 font-normal">(1st 10 rows)</span></h3>
+
                 <div className="overflow-x-auto">
                   <table className="min-w-full text-sm divide-y divide-gray-200">
                     <thead className="bg-gray-50">
