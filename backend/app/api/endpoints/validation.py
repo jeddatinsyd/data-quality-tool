@@ -9,7 +9,8 @@ from app.schemas.validation import RuleConfig, ValidationResult, ValidationResul
 
 router = APIRouter()
 
-UPLOAD_DIR = "temp_uploads"
+# Use /tmp for serverless environments (Vercel), fallback to temp_uploads for local
+UPLOAD_DIR = os.environ.get("UPLOAD_DIR", "/tmp" if os.path.exists("/tmp") else "temp_uploads")
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 
 # In-memory store for demo purposes (replace with DB for persistent metadata)
