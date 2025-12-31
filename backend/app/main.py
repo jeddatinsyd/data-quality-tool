@@ -10,9 +10,7 @@ app.add_middleware(
 
     allow_origins=[
         "https://dqtool.vercel.app",
-        "https://dqtoolbackend.vercel.app",
-        "http://127.0.0.1:8000",
-        "http://127.0.0.1:3000",
+        "http://127.0.0.1:3000"
     ],
     allow_credentials=True,
     allow_methods=["*"],
@@ -24,11 +22,3 @@ app.include_router(validation.router, prefix="/api", tags=["Validation"])
 @app.get("/")
 async def root():
     return {"message": "Data Quality Tool API is running"}
-
-# Explicit OPTIONS handler for debugging
-@app.options("/api/{path:path}")
-async def options_handler(path: str):
-    return {}
-
-
-#test
