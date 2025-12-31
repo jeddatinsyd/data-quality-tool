@@ -1,10 +1,10 @@
 {
-<<<<<<< HEAD
+
   "version": 2,
   "builds": [
     {
       "src": "api/index.py",
-=======
+
 
   "version": 2,
   "builds": [
@@ -15,14 +15,14 @@
     {
       "src": "app/main.py",
 
->>>>>>> e8b800629f67e72a170ac77ac0aca737245dc9f2
+
       "use": "@vercel/python"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-<<<<<<< HEAD
+
       "dest": "api/index.py"
     }
   ],
@@ -53,7 +53,7 @@
     "PYTHON_VERSION": "3.11"
   }
 }
-=======
+
 
       "dest": "api/index.py"
     }
@@ -66,4 +66,3 @@
     
   ]
 }
->>>>>>> e8b800629f67e72a170ac77ac0aca737245dc9f2
