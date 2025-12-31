@@ -2,7 +2,7 @@
 
 import React, { useState, ChangeEvent, DragEvent } from 'react';
 import { useValidationStore } from '@/store/useValidationStore';
-import { API_BASE_URL } from '@/lib/api';
+import { apiUrl } from '@/lib/api';
 
 export default function FileUpload() {
     const [uploading, setUploading] = useState(false);
@@ -23,7 +23,7 @@ export default function FileUpload() {
         formData.append('file', file);
 
         try {
-            const res = await fetch(`${API_BASE_URL}/api/upload`, {
+            const res = await fetch(apiUrl('/api/upload'), {
                 method: 'POST',
                 body: formData,
             });

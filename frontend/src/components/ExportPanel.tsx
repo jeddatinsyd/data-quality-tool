@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useValidationStore } from '@/store/useValidationStore';
-import { API_BASE_URL } from '@/lib/api';
+import { apiUrl } from '@/lib/api';
 
 export default function ExportPanel() {
     const { results } = useValidationStore();
@@ -12,7 +12,7 @@ export default function ExportPanel() {
     const handleExport = (format: 'csv' | 'json') => {
         // Determine filename
         const runId = results.run_id;
-        window.open(`${API_BASE_URL}/api/export/${runId}?format=${format}`, '_blank');
+        window.open(apiUrl(`/api/export/${runId}?format=${format}`), '_blank');
     };
 
     return (
