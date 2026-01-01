@@ -9,7 +9,6 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "https://dqtool.vercel.app",
-        "https://dqtoolbackend-jedongs-projects.vercel.app",
         "https://dqtoolbackend.vercel.app",
         "http://127.0.0.1:3000",
         "http://localhost:3000"
