@@ -1,14 +1,10 @@
-from fastapi import FastAPI
+from http.server import BaseHTTPRequestHandler
+import json
 
-app = FastAPI()
-
-@app.get("/")
-def read_root():
-    return {"status": "Minimal Backend is working!", "path": "root"}
-
-@app.get("/{full_path:path}")
-def catch_all(full_path: str):
-    return {"status": "Minimal Backend is working!", "path": full_path}
-
-# Vercel entry point
-handler = app
+class handler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        self.send_response(200)
+        self.send_header('Content-type', 'application/json')
+        self.end_headers()
+        self.wfile.write(json.dumps({"status": "Raw Python working!"}).encode('utf-8'))
+        return
