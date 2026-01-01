@@ -4,11 +4,11 @@ app = FastAPI()
 
 @app.get("/")
 def read_root():
-    return {"status": "Backend is reachable!", "message": "Configuration is correct."}
+    return {"status": "Minimal Backend is working!", "path": "root"}
 
 @app.get("/{full_path:path}")
 def catch_all(full_path: str):
-    return {"status": "Backend reachable", "path": full_path, "note": "Caught by wildcard"}
+    return {"status": "Minimal Backend is working!", "path": full_path}
 
 # Vercel entry point
 handler = app
