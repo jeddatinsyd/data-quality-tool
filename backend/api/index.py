@@ -7,11 +7,14 @@ import os
 from pathlib import Path
 
 # Add the backend directory to the Python path
-backend_dir = Path(__file__).parent.parent
-sys.path.insert(0, str(backend_dir))
+#backend_dir = Path(__file__).parent.parent
+#sys.path.insert(0, str(backend_dir))
 
-#from app.main import app --local working
-from main import app
+ROOT_DIR = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT_DIR))
+
+from app.main import app
+
 
 # Vercel expects the handler to be named 'handler' or 'app'
 # For FastAPI, we export the app directly

@@ -26,8 +26,8 @@ export default function FileUpload() {
         formData.append('file', file);
         try {
 
-            //const res = await fetch(apiUrl('/api/upload'), { --for local
-            const res = await fetch('https://dqtoolbackend.vercel.app/api/upload', {
+            const res = await fetch(apiUrl('/api/upload'), {
+
                 method: 'POST',
                 body: formData,
             });
