@@ -1,17 +1,15 @@
-import sys
-import os
-from pathlib import Path
+from fastapi import FastAPI
 from mangum import Mangum
 
-# Add the 'backend' folder to sys.path so we can import 'app'
-# We are currently in /var/task/api/index.py (roughly)
-# We need to reach /var/task/backend
-current_dir = Path(__file__).resolve().parent
-root_dir = current_dir.parent
-sys.path.append(str(root_dir))
-sys.path.append(str(root_dir / "backend"))
+app = FastAPI()
 
-from backend.app.main import app
+@app.get("/")
+def read_root():
+    return {"status": "FastAPI + Mangum is working!", "note": "No Pandas loaded yet."}
 
-# Wrap the FastAPI app with Mangum for Vercel/Lambda compatibility
+@app.get("/{full_path:path}")
+def catch_all(full_path: str):
+    return {"status": "FastAPI + Mangum reachable", "path": full_path}
+
+# Wrap with Mangum
 handler = Mangum(app)
