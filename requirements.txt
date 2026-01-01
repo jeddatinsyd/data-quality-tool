@@ -1,3 +1,10 @@
 fastapi
 uvicorn
 mangum
+pandas
+numpy
+python-multipart
+supabase
+pydantic
+pydantic-settings
+email-validator
