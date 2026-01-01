@@ -6,7 +6,8 @@ import uuid
 import pandas as pd
 from app.services.validation_engine import process_file, validate_dataframe
 from app.schemas.validation import RuleConfig, ValidationResult, ValidationResultSummary
-
+import io
+import fastapi.responses
 router = APIRouter()
 
 # Use /tmp for serverless environments (Vercel), fallback to temp_uploads for local
@@ -128,5 +129,4 @@ async def export_results(run_id: str, format: str = "json"):
     else:
         raise HTTPException(status_code=400, detail="Unsupported format")
         
-import io
-import fastapi.responses
+
