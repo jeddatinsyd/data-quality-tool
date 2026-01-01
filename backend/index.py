@@ -1,26 +1,14 @@
-import sys
-import os
-import traceback
+from fastapi import FastAPI
 
-try:
-    # Add current directory to path so 'app' package is found
-    sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+app = FastAPI()
 
-    from app.main import app
-    handler = app
+@app.get("/")
+def read_root():
+    return {"status": "Backend is reachable!", "message": "Configuration is correct."}
 
-except Exception as e:
-    # Debugging: If startup fails, return the traceback as a response
-    from fastapi import FastAPI, Response
-    debug_app = FastAPI()
-    
-    @debug_app.get("/{path:path}")
-    async def catch_all(path: str):
-        error_trace = traceback.format_exc()
-        return Response(
-            content=f"Backend Startup Error:\n{error_trace}", 
-            media_type="text/plain", 
-            status_code=500
-        )
-    
-    handler = debug_app
+@app.get("/api/{path:path}")
+def catch_api(path: str):
+    return {"status": "API route reachable", "path": path}
+
+# Vercel entry point
+handler = app
