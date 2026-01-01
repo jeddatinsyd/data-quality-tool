@@ -128,5 +128,3 @@ async def export_results(run_id: str, format: str = "json"):
         )
     else:
         raise HTTPException(status_code=400, detail="Unsupported format")
-        
-
