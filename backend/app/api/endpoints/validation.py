@@ -11,14 +11,18 @@ import fastapi.responses
 router = APIRouter()
 
 # Use /tmp for serverless environments (Vercel), fallback to temp_uploads for local
-UPLOAD_DIR = os.environ.get("UPLOAD_DIR", "/tmp" if os.path.exists("/tmp") else "temp_uploads")
-os.makedirs(UPLOAD_DIR, exist_ok=True)
+# Use /tmp for serverless environments (Vercel), fallback to temp_uploads for local
+# We don't create directories at module level to avoid startup crashes
+UPLOAD_DIR = "/tmp" if os.path.exists("/tmp") else "temp_uploads"
 
 # In-memory store for demo purposes (replace with DB for persistent metadata)
 file_metadata = {}
 
 @router.post("/upload")
 async def upload_file(file: UploadFile = File(...)):
+    # Ensure directory exists at runtime, not import time
+    os.makedirs(UPLOAD_DIR, exist_ok=True)
+    
     file_id = str(uuid.uuid4())
     file_path = os.path.join(UPLOAD_DIR, f"{file_id}_{file.filename}")
     
