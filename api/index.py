@@ -15,7 +15,9 @@ class handler(BaseHTTPRequestHandler):
             import fastapi
             import mangum
             import uvicorn
-            details = f"Imports Successful! FastAPI: {fastapi.__version__}"
+            import pandas as pd
+            import numpy as np
+            details = f"Imports Successful! FastAPI: {fastapi.__version__}, Pandas: {pd.__version__}"
         except Exception:
             status = "Import Failed"
             details = traceback.format_exc()
