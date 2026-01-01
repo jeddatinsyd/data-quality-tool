@@ -2,8 +2,6 @@ import sys
 import os
 import traceback
 from pathlib import Path
-from http.server import BaseHTTPRequestHandler
-import json
 
 # Setup paths to find the backend code
 current_dir = Path(__file__).resolve().parent
@@ -13,24 +11,20 @@ sys.path.append(str(root_dir / "backend"))
 
 try:
     # Try to import the actual FastAPI app
-    from mangum import Mangum
-    from backend.app.main import app as fast_api_app
+    from backend.app.main import app
     
-    # Wrap it for Vercel
-    handler = Mangum(fast_api_app)
-
 except Exception:
-    # If the app fails to start (e.g. error in main.py or dependencies), catch it!
-    error_trace = traceback.format_exc()
+    # If the real app fails to load, create a fallback FastAPI app to show the error
+    # We do NOT use 'handler' here because Vercel expects 'app' for ASGI
+    from fastapi import FastAPI, Response
+    
+    app = FastAPI()
 
-    class handler(BaseHTTPRequestHandler):
-        def do_GET(self):
-            self.send_response(500)
-            self.send_header('Content-type', 'application/json')
-            self.end_headers()
-            response = {
-                "status": "CRASHED during App Startup",
-                "error": error_trace
-            }
-            self.wfile.write(json.dumps(response).encode('utf-8'))
-            return
+    @app.get("/{full_path:path}")
+    def catch_all(full_path: str):
+        error_trace = traceback.format_exc()
+        return Response(
+            content=f"CRASHED during App Startup:\n{error_trace}", 
+            media_type="text/plain", 
+            status_code=500
+        )
