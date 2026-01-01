@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import io
 from typing import Dict, List, Any, Tuple
 from app.schemas.validation import RuleConfig, ValidationResultSummary, ColumnStats
 
@@ -94,5 +95,3 @@ def validate_dataframe(df: pd.DataFrame, config: RuleConfig) -> Tuple[Validation
     sample_errors = df.iloc[list(failed_indices)[:10]].to_dict(orient='records') if failed_indices else []
     
     return summary, sample_errors
-
-import io
